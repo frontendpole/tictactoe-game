@@ -1,20 +1,36 @@
-const h1 = document.createElement('h1')
-h1.textContent = 'Welcome to tic-tac-toe!';
-document.body.appendChild(h1);
-h1.classList.add('welcome');
-
-const newGameBtn = document.createElement('button');
-
-document.body.appendChild(newGameBtn);
-newGameBtn.classList.add('newGame');
-
-newGameBtn.textContent = "New game";
-
-const newGameHandler = function () {
-    const table = document.querySelector('table');
-    document.body.removeChild(table);
-    const gameTable = new GameTable();
+class Header {
+    constructor(header, text) {
+        this.header = this.createHeader();
+        this.text = this.addText();
+    }
+    createHeader() {
+        const h1 = document.createElement('h1');
+        document.body.appendChild(h1);
+        h1.classList.add('welcome');
+    }
+    addText() {
+        document.querySelector('h1').textContent = 'Welcome to tic-tac-toe!';
+    }
 }
+
+const welcomeHeader = new Header();
+
+class NewGameButton {
+    constructor(button, name) {
+        this.button = this.createButton();
+        this.name = this.addName();
+    }
+    createButton() {
+        const newGameBtn = document.createElement('button');
+        document.body.appendChild(newGameBtn);
+        newGameBtn.classList.add('newGame');
+    };
+    addName() {
+        document.querySelector('button').textContent = "New game";
+    }
+}
+
+const newGameBtn = new NewGameButton();
 
 class GameTable {
     constructor(lastSign, table) {
@@ -22,22 +38,16 @@ class GameTable {
         this.table = this.createTable(3, 3);
         document.body.appendChild(this.table);
     }
-
-    results() {
-
-        [
-            ['a1', 'b1', 'c1'],
-            ['a2', 'b2', 'c2'],
-            ['a3', 'b3', 'c3'],
-            ['a1', 'a2', 'a3'],
-            ['b1', 'b2', 'b3'],
-            ['c1', 'c2', 'c3'],
-            ['a1', 'b2', 'c3'],
-            ['c1', 'b2', 'a3'],
-        ];
-
-    }
-
+    results = [
+        ['a1', 'b1', 'c1'],
+        ['a2', 'b2', 'c2'],
+        ['a3', 'b3', 'c3'],
+        ['a1', 'a2', 'a3'],
+        ['b1', 'b2', 'b3'],
+        ['c1', 'c2', 'c3'],
+        ['a1', 'b2', 'c3'],
+        ['c1', 'b2', 'a3'],
+    ];
     createTd(id, className) {
         const td = document.createElement('td');
         td.id = id;
@@ -45,7 +55,6 @@ class GameTable {
         td.addEventListener('click', this.tdClickHandler.bind(this));
         return td;
     }
-
     createTr(idx, count) {
         const tr = document.createElement('tr');
         for (let i = 1; i <= count; i++) {
@@ -55,7 +64,6 @@ class GameTable {
         }
         return tr;
     }
-
     createTable(rows, cols) {
         const table = document.createElement('table');
         for (let i = 0; i < rows; i++) {
@@ -64,23 +72,6 @@ class GameTable {
         }
         return table;
     }
-
-    tdClickHandler(event) {
-        const target = event.target;
-        if (target.dataset.sign) {
-            return;
-        }
-        if (this.lastSign == 'x') {
-            target.dataset.sign = 'o';
-            target.innerHTML = '&cir;';
-        } else {
-            target.dataset.sign = 'x';
-            target.innerHTML = '&times;';
-        }
-        this.lastSign = target.dataset.sign;
-        console.log('is win', this.detect());
-    }
-
     detect() {
         let win = false;
         const lnt = this.results.length;
@@ -109,8 +100,28 @@ class GameTable {
         }
         return win;
     }
+    tdClickHandler(event) {
+        const target = event.target;
+        if (target.dataset.sign) {
+            return;
+        }
+        if (this.lastSign == 'x') {
+            target.dataset.sign = 'o';
+            target.innerHTML = '&cir;';
+        } else {
+            target.dataset.sign = 'x';
+            target.innerHTML = '&times;';
+        }
+        this.lastSign = target.dataset.sign;
+        console.log('is win', this.detect());
+    }
 }
-
 const gameTable = new GameTable();
 
-newGameBtn.addEventListener('click', newGameHandler);
+const newGameHandler = function () {
+    const table = document.querySelector('table');
+    document.body.removeChild(table);
+    const gameTable = new GameTable();
+}
+
+document.querySelector('button').addEventListener('click', newGameHandler);
