@@ -1,3 +1,5 @@
+//in ES6 standard
+
 class Header {
     constructor(header, text) {
         this.header = this.createHeader();
