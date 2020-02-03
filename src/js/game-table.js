@@ -1,40 +1,4 @@
-//in ES6 standard
-
-class Header {
-    constructor(header, text) {
-        this.header = this.createHeader();
-        this.text = this.addText();
-    }
-    createHeader() {
-        const h1 = document.createElement('h1');
-        document.body.appendChild(h1);
-        h1.classList.add('welcome');
-    }
-    addText() {
-        document.querySelector('h1').textContent = 'Welcome to tic-tac-toe!';
-    }
-}
-
-const welcomeHeader = new Header();
-
-class NewGameButton {
-    constructor(button, name) {
-        this.button = this.createButton();
-        this.name = this.addName();
-    }
-    createButton() {
-        const newGameBtn = document.createElement('button');
-        document.body.appendChild(newGameBtn);
-        newGameBtn.classList.add('newGame');
-    };
-    addName() {
-        document.querySelector('button').textContent = "New game";
-    }
-}
-
-const newGameBtn = new NewGameButton();
-
-class GameTable {
+export class GameTable {
     constructor(lastSign, table) {
         this.lastSign = 'o';
         this.table = this.createTable(3, 3);
@@ -117,13 +81,10 @@ class GameTable {
         this.lastSign = target.dataset.sign;
         console.log('is win', this.detect());
     }
-}
-const gameTable = new GameTable();
 
-const newGameHandler = function () {
-    const table = document.querySelector('table');
-    document.body.removeChild(table);
-    const gameTable = new GameTable();
+    resetGame() {
+        /**
+         * Zaimplementować odświeżenie gry
+         */
+    }
 }
-
-document.querySelector('button').addEventListener('click', newGameHandler);

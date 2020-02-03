@@ -10,6 +10,14 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('html-copy', () => {
+    return gulp.src('./src/index.html').pipe(gulp.dest('./dist'));
+});
+
+gulp.task('babel', () => {});
+
 gulp.task('sass:watch', function () {
     gulp.watch('./sass/**/*.scss', gulp.parallel('sass'));
 });
+// Uzupełnić task do builda, który wykonuje taski sass, babel, copy-html
+glup.task('build', () => {});
